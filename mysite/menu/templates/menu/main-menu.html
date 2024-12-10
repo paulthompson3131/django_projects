@@ -1,0 +1,28 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Paul Thompson</title>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="{% static 'css/paul.css' %}">
+</head>
+<body>
+<div class="myDiv">
+  <h1>Technical Systems</h2>
+  <p>System Search Features.</p>
+</div>
+
+<ul>
+    <li>
+        <a href="{% url 'menu:menu11' %}"> Menu Item 1
+    </li>
+
+    <li>
+        <a href="{% url 'menu:menu12' %}"> Menu Item 2
+    </li>
+    <li>
+        <a href="{% url 'menu:menu13' %}"> Menu Item 3
+    </li>
+</body>
+</html>

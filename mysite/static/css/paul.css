@@ -1,0 +1,29 @@
+html {
+ /* Base styles go here */
+ font: 14px/1.5 Arial, sans-serif;
+ background: lightblue;
+}
+
+body {
+ background: lightblue;
+ padding: 0 20px;
+ width: 920px;
+ margin: 0 auto;
+}
+
+h1 {
+  color: blue;
+  font-family: verdana;
+  font-size: 300%;
+}
+p {
+  color: red;
+  font-family: courier;
+  font-size: 160%;
+  font-style: italic;
+}
+.myDiv {
+  border: 5px outset red;
+  background-color: lightblue;
+  text-align: center;
+}

@@ -1,0 +1,42 @@
+   {% load static %}                                                                                                                                                                                            
+   
+   <!DOCTYPE html>
+   <html lang="en">
+   <head>
+     <title>Paul Thompson</title>
+     <meta charset="UTF-8">
+     <link rel="stylesheet" href="{% static 'css/paul.css' %}">
+   </head>
+  <body>
+  <div class="myDiv">
+    <h2>People List</h2>
+    <p>System Search Features - People List.</p>
+  </div>
+
+    <form>
+        <label for="fname">First name:</label><br>
+        <input type="text" id="fname" name="fname"><br>
+        <input type="submit" value="Submit">
+    </form>
+  
+  <ul>
+      <li>Paul Simpson</li>
+      <li>Lisa Hubertson</li>
+      <li>Eric Roofuccson</li>
+  
+      <br>
+      <br>
+  
+      <li> 
+          <a href="{% url 'menu:menu11' %}"> Go Back to Previous Menu
+      </li> 
+      <br>
+      <br>
+      <li> 
+          <a href="{% url 'menu:mainmenu' %}"> Go Back to Main Menu
+      </li> 
+      <br>
+      <br>
+  
+  </body>
+  </html>
