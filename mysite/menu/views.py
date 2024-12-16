@@ -1,60 +1,55 @@
-from django.shortcuts import render, redirect
+from django.db.models import F
+from django.http import HttpResponseRedirect
+from django.shortcuts import get_object_or_404, render
 from django.urls import reverse
-from django.views import View
-from django.http import HttpResponse, HttpResponseRedirect
-import html
-from django.views.decorators.csrf import csrf_exempt
+from django.views import generic
 
-class mainmenu(View):  
-    def get(self, request) :
-        return render(request, 'menu/main-menu.html')
 
-class menu11(View):  
-    def get(self, request) :
-        return render(request, 'menu/menu-1-1.html')
+def MainMenuView(request):
+    template_name = "menu/main-menu.html"
+    main_menu_list = [
+         {"label": "This is menu Option 1", "url_to_call": "first_url" },
+         {"label": "This is menu Option 2", "url_to_call": "second_url" },
+         {"label": "This is menu Option 3", "url_to_call": "third_url" }
+        ]
+    context = { "main_menu_list": main_menu_list }
+    return render(request, template_name, context)
 
-class menu12(View):  
-    def get(self, request) :
-        return render(request, 'menu/menu-1-2.html')
+def FirstView(request):
+    template_name = "menu/first.html"
+    first_command_list = [
+         {"label": "Find out what people are doing", "url_to_call": "dosomething" },
+         {"label": "Get Accounting Details", "url_to_call": "dosomething" },
+         {"label": "Get Batch Execution Details", "url_to_call": "dosomething" }
+        ]
 
-class menu13(View):  
-    def get(self, request) :
-        return render(request, 'menu/menu-1-3.html')
+    context = { "first_command_list":first_command_list }
+    return render(request, template_name, context)
 
-class peoplelist(View):  
-    def get(self, request) :
-        return render(request, 'menu/peoplelist.html')
+def SecondView(request):
+    template_name = "menu/second.html"
+    second_command_list = [
+         {"label": "Find out how to Climb Trees", "url_to_call": "dosomething" },
+         {"label": "Get Car Details", "url_to_call": "dosomething" },
+         {"label": "Get Astronomical  Details", "url_to_call": "dosomething" }
+        ]
 
-# Call as dumpdata('GET', request.GET)
+    context = { "second_command_list":second_command_list }
+    return render(request, template_name, context)
 
-def dumpdata(place, data) :
-    retval = ""
-    if len(data) > 0 :
-        retval += '<p>Incoming '+place+' data:<br/>\n'
-        for key, value in data.items():
-            retval += html.escape(key) + '=' + html.escape(value) + '</br>\n'
-        retval += '</p>\n'
-    return retval
+def ThirdView(request):
+    template_name = "menu/third.html"
+    third_command_list = [
+         {"label": "Find out how to Watch Movies", "url_to_call": "dosomething" },
+         {"label": "Get Bike Details", "url_to_call": "dosomething" },
+         {"label": "Get Astronomical Cqalendars", "url_to_call": "dosomething" }
+        ]
 
-def getform(request):
-    response = """<p>Impossible GET guessing game...</p>
-        <form>
-        <p><label for="guess">Input Guess</label>
-        <input type="text" name="guess" size="40" id="guess"/></p>
-        <input type="submit"/>
-        </form>"""
+    context = { "third_command_list":third_command_list }
+    return render(request, template_name, context)
 
-    response += dumpdata('GET', request.GET)
-    return HttpResponse(response)
-
-@csrf_exempt
-def postform(request):
-    response = """<p>Impossible POST guessing game...</p>
-        <form method="POST">
-        <p><label for="guess">Input Guess</label>
-        <input type="text" name="guess" size="40" id="guess"/></p>
-        <input type="submit"/>
-        </form>"""
-
-    response += dumpdata('POST', request.POST)
-    return HttpResponse(response)
+def DoSomething(request):
+    template_name = "menu/dosomething.html"
+    dummy = "dummy"
+    context = { "dummy": dummy }
+    return render(request, template_name, context)

@@ -13,6 +13,8 @@ Class-based views
 Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
+    path('', TemplateView.as_view(template_name='menu/main-menu.html')),
+    path("", include("menu.urls")),
 """
 
 import os
@@ -32,7 +34,7 @@ urlpatterns = [
     path('polls/', include('polls.urls')),
     path("hello/", include("hello.urls")),
     path("menu/", include("menu.urls")),
-    path('', TemplateView.as_view(template_name='menu/main-menu.html')),
+    path("", include("menu.urls")),
     re_path(r'^site/(?P<path>.*)$', serve,
         {'document_root': SITE_ROOT, 'show_indexes': True},
         name='site_path'

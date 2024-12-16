@@ -1,0 +1,21 @@
+from django.db.models import F
+from django.http import HttpResponseRedirect
+from django.shortcuts import get_object_or_404, render
+from django.urls import reverse
+from django.views import generic
+
+
+class MainMenuView(generic.ListView):
+    template_name = "menu/main-menu.html"
+    context_object_name = "main_menu_list"
+
+    def get_queryset(self):
+        """Return the last five published questions."""
+        #main_menu_list = [ "One", "Two","Three"]
+        main_menu_list = [
+                {"label": "This is menu Option 1", "url_to_call": "first thing" },
+                {"label": "This is menu Option 2", "url_to_call": "second thing" },
+                {"label": "This is menu Option 3", "url_to_call": "third thing" }
+        ]
+        #return Question.objects.order_by("-pub_date")[:5]
+        return main_menu_list

@@ -10,12 +10,12 @@
 <body>
 <div class="myDiv">
   <h1>Technical Systems</h2>
-  <p>System Search Features.</p>
+  <p>Second Search Features.</p>
 </div>
 
-{% if main_menu_list %}
+{% if second_command_list %}
     <ul>
-    {% for dict_menu in main_menu_list %}
+    {% for dict_menu in second_command_list %}
     <li >
          <a href="{{dict_menu.url_to_call}}">{{ dict_menu.label }}</a>
     </li>
@@ -24,6 +24,8 @@
 {% else %}
     <p>No options are available.</p>
 {% endif %}
+
+<a href="{% url 'menu:mainmenu' %}">Return to Main Menu</a></li>
 
 </body>
 </html>
