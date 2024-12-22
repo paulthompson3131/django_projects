@@ -4,6 +4,10 @@ html {
  background: lightblue;
 }
 
+table, th, td {
+  border: 1px solid;
+}
+
 body {
  background: lightblue;
  padding: 0 20px;
