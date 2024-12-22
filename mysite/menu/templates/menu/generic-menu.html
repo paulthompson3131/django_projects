@@ -13,11 +13,11 @@
   <p>System Search Features.</p>
 </div>
 
-{% if main_menu_list %}
+{% if menu %}
     <ul>
-    {% for dict_menu in main_menu_list %}
+        {% for menucontent in menu.menucontent_set.all %}
     <li >
-         <a href="{{dict_menu.url_to_call}}">{{ dict_menu.label }}</a>
+        <a href="{% url menucontent.url_to_call %}">{{ menucontent.label }}</a>
     </li>
     {% endfor %}
     </ul>
@@ -25,5 +25,13 @@
     <p>No options are available.</p>
 {% endif %}
 
+{% if menu.parent != "none" %} 
+    <a href="{% url 'menu:mainmenu' %}">Return to Main Menu</a></li>
+    {% if menu.parent != "main_menu" %} 
+        <a href="{% url menu.parent %}">Return to Main Menu</a></li>
+    {% endif %}
+{% endif %}
+
 </body>
 </html>
+

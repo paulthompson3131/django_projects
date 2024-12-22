@@ -1,0 +1,12 @@
+main_menu,menu:first_url,This is menu Option 1
+main_menu,menu:second_url,This is menu Option 2
+main_menu,menu:third_url,This is menu Option 3
+first_menu,menu:dosomething,Find out what people are doing
+first_menu,menu:dosomething,Get Accounting Details
+first_menu,menu:dosomething,Get Batch Execution Details
+second_menu,menu:dosomething,Find out how to Climb Trees
+second_menu,menu:dosomething,Get Car Details
+second_menu,menu:menu:dosomething,Get Astronomical  Details
+third_menu,menu:menu:dosomething,Find out how to Watch Movies
+third_menu,menu:dosomething,Get Bike Details
+third_menu,menu:dosomething,Get Astronomical Calendars
