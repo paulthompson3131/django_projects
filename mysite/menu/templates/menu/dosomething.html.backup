@@ -57,20 +57,16 @@ box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
 
     <table class="styled-table">
         <tr>
-            {% for column in columns %}
             <th>
-                {{ column }}
+             List of Ideas
             </th>
-            {% endfor %}
         </tr>
-        {% for row in rows %}
-            <tr>
-                {% for key, value in row.items %}
-                <td>
-                    {{ value }}
-                </td>
-                {% endfor %}
-            </tr>
+        {% for idea in listofideas %}
+        <tr>
+            <td>
+                {{ idea }}
+            </td>
+        </tr>
         {% endfor %}
     </table>
 

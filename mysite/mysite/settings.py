@@ -82,7 +82,21 @@ DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.sqlite3",
         "NAME": BASE_DIR / "db.sqlite3",
-    }
+    },
+    'systemsupport': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'paulthompson3131$systemsupport',
+        'USER': 'paulthompson3131',
+        'PASSWORD': 'Kilcunda123$$$',
+        'HOST': 'paulthompson3131.mysql.pythonanywhere-services.com',
+    },
+    'employees': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'paulthompson3131$employees',
+        'USER': 'paulthompson3131',
+        'PASSWORD': 'Kilcunda123$$$',
+        'HOST': 'paulthompson3131.mysql.pythonanywhere-services.com',
+    },
 }
 
 

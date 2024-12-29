@@ -10,4 +10,6 @@ urlpatterns = [
     path("second_url", views.SecondView.as_view(), name="second_url"),
     path("third_url", views.ThirdView.as_view(), name="third_url"),
     path("dosomething", views.DoSomethingView.as_view(), name="dosomething"),
+    path("getemployees", views.GetEmployeesView.as_view(), name="getemployees"),
+    path("employeedepartment", views.GetEmployeesDepartmentView.as_view(), name="employeedepartment"),
 ]
