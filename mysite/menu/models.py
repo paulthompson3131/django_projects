@@ -6,6 +6,7 @@ class Menu(models.Model):
     parent = models.CharField(max_length=128)
 
 class MenuContent(models.Model):
-    name = models.ForeignKey(Menu, on_delete=models.CASCADE) 
+    name = models.ForeignKey(Menu, on_delete=models.CASCADE)
+    form_url = models.CharField(max_length=128, default="getemployeesurname")
     url_to_call = models.CharField(max_length=128)
     label = models.CharField(max_length=128)

@@ -1,0 +1,61 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Paul Thompson</title>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="{% static 'menu/css/paul.css' %}">
+
+</head>
+<body>
+<div class="myDiv">
+    <h1>{{ menu_content.label }}</h2>
+    <p>{{ subheading }}</p>
+</div>
+<br>
+
+{% csrf_token %}
+<fieldset>
+    <legend><h1>Enter User Surname</h1></legend>
+  <label for="fname">Employee Surname:</label><br>
+  <input type="text" id="sname" name="sname" value="Smith"><br>
+</fieldset>
+<input type="submit" value="Submit">
+</form>
+
+<br>
+<br>
+{% if sname %}
+
+    <table class="styled-table">
+        <tr>
+            {% for column in columns %}
+            <th>
+                {{ column }}
+            </th>
+            {% endfor %}
+        </tr>
+        {% for row in rows %}
+            <tr>
+                {% for key, value in row.items %}
+                <td>
+                    {{ value }}
+                </td>
+                {% endfor %}
+            </tr>
+        {% endfor %}
+    </table>
+
+    <br>
+    <br>
+
+{% endif %}
+
+    <a href="{{request.META.HTTP_REFERER}}">Go back to Previous Page</a>
+    <br>
+    <br>
+
+    <a href="{% url 'menu:mainmenu' %}">Return to Main Menu</a></li>
+</body>
+</html>

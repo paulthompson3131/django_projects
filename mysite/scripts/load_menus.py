@@ -26,7 +26,7 @@ def run():
         next(reader2)  # Advance past the header
         for row2 in reader2:
             if row2[0] == row[0]:
-                m.menucontent_set.create(url_to_call=row2[1], label=row2[2])
+                m.menucontent_set.create(form_url=row2[1], url_to_call=row2[2], label=row2[3])
                 m.save()
 
     print("=== Menu Load Complete")

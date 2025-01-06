@@ -5,19 +5,19 @@
 <head>
   <title>Paul Thompson</title>
   <meta charset="UTF-8">
-  <link rel="stylesheet" href="{% static 'css/paul.css' %}">
+  <link rel="stylesheet" href="{% static 'menu/css/paul.css' %}">
 </head>
 <body>
 <div class="myDiv">
     <h1>{{ menu.heading }}</h2>
-  <p>System Search Features.</p>
+  <p>System Search Features</p>
 </div>
 
 {% if menu %}
     <ul>
-        {% for menucontent in menu.menucontent_set.all %}
+    {% for menucontent in menu.menucontent_set.all %}
     <li >
-        <a href="{% url menucontent.url_to_call %}">{{ menucontent.label }}</a>
+        <a href="{% url menucontent.form_url menucontent.id %}">{{ menucontent.label }}</a>
     </li>
     {% endfor %}
     </ul>
@@ -25,9 +25,9 @@
     <p>No options are available.</p>
 {% endif %}
 
-{% if menu.parent != "none" %} 
+{% if menu.parent != "none" %}
     <a href="{% url 'menu:mainmenu' %}">Return to Main Menu</a></li>
-    {% if menu.parent != "main_menu" %} 
+    {% if menu.parent != "main_menu" %}
         <a href="{% url menu.parent %}">Return to Parent Menu</a></li>
     {% endif %}
 {% endif %}

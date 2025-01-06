@@ -1,0 +1,29 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Paul Thompson</title>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="{% static 'menu/css/paul.css' %}">
+
+</head>
+<body>
+<div class="myDiv">
+    <h1>{{ menu_content.label }}</h2>
+    <p>{{ subheading }}</p>
+</div>
+
+<form action="{% url menu_content.url_to_call menu_content.id %}" method="get">
+
+{% csrf_token %}
+<fieldset>
+    <legend><h1>Enter User Surname</h1></legend>
+  <label for="fname">Employee Surname:</label><br>
+  <input type="text" id="sname" name="sname" value="Smith"><br>
+</fieldset>
+<input type="submit" value="Submit">
+</form>
+
+<br>
+<li><a href="{% url 'menu:mainmenu' %}">Return to Main Menu</a></li>
