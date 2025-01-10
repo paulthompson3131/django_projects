@@ -17,7 +17,7 @@
     <ul>
     {% for menucontent in menu.menucontent_set.all %}
     <li >
-        <a href="{% url menucontent.form_url menucontent.id %}">{{ menucontent.label }}</a>
+        <a href="{% url menucontent.url_to_call menucontent.id %}">{{ menucontent.label }}</a>
     </li>
     {% endfor %}
     </ul>

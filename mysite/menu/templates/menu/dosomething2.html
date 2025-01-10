@@ -15,18 +15,30 @@
 </div>
 <br>
 
-{% csrf_token %}
-<fieldset>
-    <legend><h1>Enter User Surname</h1></legend>
-  <label for="fname">Employee Surname:</label><br>
-  <input type="text" id="sname" name="sname" value="Smith"><br>
-</fieldset>
-<input type="submit" value="Submit">
+
+<p>
+    <form action="" method = "post">
+        {% csrf_token %}
+    <fieldset>
+        <legend><h1>Enter User Surname</h1></legend>
+    <label for="fname">Employee Surname:</label><br>
+    <input type="text" id="sname" name="sname" value={{ default_name }}><br>
+    </fieldset>
+    <input type="submit" value="Submit">
 </form>
 
+</p>
 <br>
 <br>
+
+<p>
+sql is {{ sql }}<br>
+Mumber of rows returned from query: {{ query_count }} <br>
+</p>
+
+
 {% if sname %}
+    {% if query_count > 0 %}
 
     <table class="styled-table">
         <tr>
@@ -46,6 +58,10 @@
             </tr>
         {% endfor %}
     </table>
+
+    {% else %}
+    <p> No rows returned</p>
+    {% endif %}
 
     <br>
     <br>
