@@ -98,7 +98,6 @@ class CatCreate(View):
     def get(self, request, pk):
         dump = dumpdata('GET', request.GET)
         context = {'dump' : dump}
-        context['default_name'] = ''
         context['function'] = 'GET'
         context['menu_content'] = pk # MenuContent.objects.get(id=self.kwargs['pk'])
         context['heading'] = self.heading

@@ -24,12 +24,18 @@ from django.views.static import serve
 from django.conf import settings
 from django.contrib.auth import views as auth_views
 from django.views.generic import TemplateView
+from django.http import HttpResponseRedirect
+from django.urls import reverse
+from django.shortcuts import redirect
+from django.views.generic import RedirectView
+from . import views
 
 # Up two folders to serve "site" content
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SITE_ROOT = os.path.join(BASE_DIR, 'site')
 
 urlpatterns = [
+    path("",  views.HomePage, name="sitehome"),
     path('admin/', admin.site.urls),
     path('polls/', include('polls.urls')),
     path("hello/", include("hello.urls")),
