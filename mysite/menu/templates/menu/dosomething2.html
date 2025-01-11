@@ -15,28 +15,20 @@
 </div>
 <br>
 
-<p>
-    <form action="" method = "post">
-     {% csrf_token %}
-    <fieldset>
-        <legend><h1>Enter User Surname</h1></legend>
-    <label for="fname">Employee Surname:</label><br>
-    <input type="text" id="sname" name="sname" value={{ default_name }}><br>
-    </fieldset>
-    <input type="submit" value="Submit">
-</form>
-
-</p>
-<br>
+    <form method = "get">
+        <p><label for="guess">Input Emloyee Surname</label>
+        <input type="text" name="sname" size="40" id="sname"/></p>
+        <input type="submit"/>
+        </form>
 <br>
 
-<p>
+
+{% if length_sname > 0 %}
+
 sql is {{ sql }}<br>
-Mumber of rows returned from query: {{ query_count }} <br>
-</p>
+sname is {{ sname }} <br>
+Number of rows returned from query: {{ query_count }} <br>
 
-
-{% if sname %}
     {% if query_count > 0 %}
 
     <table class="styled-table">

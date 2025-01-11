@@ -5,6 +5,7 @@ from django.views.generic import TemplateView
 urlpatterns = [
     path('', TemplateView.as_view(template_name='getpost/main.html')),
     path('getform', views.getform, name='getform'),
+    path('getform2', views.getform2, name='getform2'),
     path('postform', views.postform, name='postform'),
     path('html4', views.html4, name='html4'),
     path('html5', views.html5, name='html5'),

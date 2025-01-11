@@ -26,6 +26,13 @@ def getform(request):
     response += dumpdata('GET', request.GET)
     return HttpResponse(response)
 
+def getform2(request):
+    dump = dumpdata('GET', request.GET)
+    the_dict = request.GET
+    guess = request.GET.get('guess', 'default')
+    return render(request, 'getpost/getform.html', {'dump' : dump, 'the_dict': the_dict, 'guess' : guess })
+
+
 @csrf_exempt
 def postform(request):
     response = """<p>Impossible POST guessing game...</p>

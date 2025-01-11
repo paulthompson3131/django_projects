@@ -1,0 +1,29 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Paul Thompson</title>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="{% static 'menu/css/paul.css' %}">
+
+</head>
+<body>
+
+    <p>Impossible GET guessing game PART TWO...</p>
+        <form method = "get">
+        <p><label for="guess">Input Guess</label>
+        <input type="text" name="guess" size="40" id="guess"/></p>
+        <input type="submit"/>
+        </form>
+
+    {% if dump != "" %}
+        dump is {{ dump }} <br>
+        The Dictionary is {{ the_dict }} <br>
+        The guess is {{ guess }}<br>
+
+    {% endif %}
+
+
+</body>
+</html>
