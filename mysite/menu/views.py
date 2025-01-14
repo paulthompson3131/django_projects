@@ -7,12 +7,14 @@ from django.views.generic.base import TemplateView
 from django.views import View
 from django.http import HttpResponse
 import html
+from django import forms
+from .forms import MyForm
 
 from .models import Menu, MenuContent
 
 from django.db import connections
 
-from django import forms
+
 from form.forms import BasicForm
 
 class MainMenuView(generic.ListView):
@@ -127,6 +129,7 @@ class CatCreate(View):
                     context['columns'].append(key)
         return render(request, 'menu/dosomething2.html', context)
 
+
 def getEmployeesView(request, pk):
     sourcedb = "employees"
     dump = dumpdata('GET', request.GET)
@@ -152,3 +155,32 @@ def getEmployeesView(request, pk):
                     context['columns'].append(key)
 
     return render(request, 'menu/dosomething2.html', context)
+
+
+def getEmployeesBySurnameView(request, pk):
+    sourcedb = "employees"
+    dump = dumpdata('GET', request.GET)
+    context = {'dump' : dump}
+    context['menu_content'] = MenuContent.objects.get(id=pk)
+    context['subheading'] = "Employees Information"
+    sname = request.GET.get('sname','')
+    context['length_sname'] = len(sname)
+    context["form"] = MyForm(request.GET)
+    if sname != '':
+        sql = f"select e.first_name, e.last_name, e.emp_no, d.dept_name from dept_emp de inner join employees e on de.emp_no = e.emp_no inner join departments d on d.dept_no = de.dept_no where e.last_name like '%{sname}%'"
+        context['sql'] = sql
+        context['function'] = 'GET'
+        context['default_name'] = sname
+        query_count=0
+        with connections[sourcedb].cursor() as cursor:
+            cursor.execute(sql)
+            context['query_count'] = cursor.rowcount
+            if cursor.rowcount > 0:
+                columns = [col[0] for col in cursor.description]
+                context['rows'] = [dict(zip(columns, row)) for row in cursor.fetchall()]
+                context['columns'] = []
+                for key, val in context['rows'][0].items():
+                    context['columns'].append(key)
+
+    return render(request, 'menu/dosomething3.html', context)
+
