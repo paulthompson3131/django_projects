@@ -1,5 +1,5 @@
 name,heading,parent
-main_menu,Main Technical Support Menu,none
-first_menu,First Menu,main_menu
-second_menu,Second Menu,main_menu
-third_menu,Third Menu,main_menu
+main_menu,Pauls Home Page,none
+first_menu,Trade Activity Forecast,main_menu
+second_menu,Company Accounting,main_menu
+third_menu,Employee Queries,main_menu

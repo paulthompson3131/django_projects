@@ -1,13 +1,14 @@
 name,url,label,back_url
-main_menu,menu:first_url,Trade Activity Forecast,menu
-main_menu,menu:second_url,Company Accounting,menu
-main_menu,menu:third_url,Employee Queries,menu
+main_menu,menu:first_url,This is menu Option 1,menu
+main_menu,menu:second_url,This is menu Option 2,menu
+main_menu,menu:third_url,Employee Details,menu
 first_menu,menu:dosomething,Find out what people are doing,menu:first_url
 first_menu,menu:dosomething,Get Accounting Details,menu,first_url
 first_menu,menu:dosomething,Get Batch Execution Details,menu:first_url
 second_menu,menu:dosomething,Find out how to Climb Trees,menu:second_url
 second_menu,menu:dosomething,Get Car Details,menu:second_url
 second_menu,menu:dosomething,Get Astronomical Details,menu:second_url
-third_menu,menu:employeesbysurname,Get Employee Surname,menu:third_url
-third_menu,menu:employeesbydepartment,Employees by Department,menu:third_url
-third_menu,menu:employeesbysalary,Employee Salaries,menu:third_url
+third_menu,menu:getemployees,Employees By Surname,menu:third_url
+third_menu,menu:getemployeesurname,Get Employee Surname,menu:third_url
+third_menu,menu:getemployeesurname,Employees by Department,menu:third_url
+third_menu,menu:getemployeesurname,Employee Salaries,menu:third_url

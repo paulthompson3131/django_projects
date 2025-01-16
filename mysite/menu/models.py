@@ -9,3 +9,4 @@ class MenuContent(models.Model):
     name = models.ForeignKey(Menu, on_delete=models.CASCADE)
     url_to_call = models.CharField(max_length=128)
     label = models.CharField(max_length=128)
+    back_url = models.CharField(max_length=128, default='menu')

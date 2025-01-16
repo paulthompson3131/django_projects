@@ -6,26 +6,24 @@
   <title>Paul Thompson</title>
   <meta charset="UTF-8">
   <link rel="stylesheet" href="{% static 'menu/css/paul.css' %}">
-
 </head>
 <body>
 <div class="myDiv">
     <h1>{{ menu_content.label }}</h2>
     <p>{{ subheading }}</p>
+    <a href="{% url menu_content.back_url menu_content.id %}">Back</a> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <a href="{% url 'menu:mainmenu' %}">Home</a></li>
 </div>
 <br>
-
-    <form method="get">
-        {{ form.as_p }}
-    <button type="submit">Send</button>
 <br>
 
-
+<form method="get">
+    {{ form.as_p }}
+<button type="submit">Send</button>
+<br>
+<br>
 {% if length_sname > 0 %}
 
-sql is {{ sql }}<br>
-sname is {{ sname }} <br>
-Number of rows returned from query: {{ query_count }} <br>
+    <p>Number of rows: {{ query_count }} </p>
 
     {% if query_count > 0 %}
 
@@ -49,7 +47,7 @@ Number of rows returned from query: {{ query_count }} <br>
     </table>
 
     {% else %}
-    <p> No rows returned</p>
+        <p> No rows returned</p>
     {% endif %}
 
     <br>
@@ -57,7 +55,7 @@ Number of rows returned from query: {{ query_count }} <br>
 
 {% endif %}
 
-    <a href="{{request.META.HTTP_REFERER}}">Go back to Previous Page</a>
+    <a href="{% url menu_content.back_url menu_content.id %}">Go back to Previous Page</a>
     <br>
     <br>
 
