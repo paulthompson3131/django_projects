@@ -8,7 +8,7 @@ from django.views import View
 from django.http import HttpResponse
 import html
 from django import forms
-from .forms import MyForm
+from .forms import MyForm, NumberOfPeopleForm
 
 from .models import Menu, MenuContent
 
@@ -83,7 +83,7 @@ class GetEmployeeSurname(TemplateView):
 
 # Call as dumpdata('GET', request.GET)
 def dumpdata(place, data) :
-    retval = "starting: "
+    retval = ""
     if len(data) > 0 :
         retval += '<p>Incoming '+place+' data:<br/>\n'
         for key, value in data.items():
@@ -91,42 +91,50 @@ def dumpdata(place, data) :
         retval += '</p>\n'
     return retval
 
-class CatCreate(View):
+class getHighSalaryEployeesView(View):
     sourcedb = "employees"
-    heading = "Test Heading"
     subheading = "Employees Information"
+    number_of_people = 0
+    desc_or_asc = 'desc'
+    sql = f"select ROW_NUMBER() over(order by salary desc) AS RANKING, e.first_name, e.last_name, e.birth_date, e.gender, e.hire_date, s.from_date, s.salary \
+            from  employees e inner join salaries s on e.emp_no = s.emp_no \
+            where s.salary > 105000 \
+            and to_date > CURDATE() \
+            order by salary {desc_or_asc} "
 
     def get(self, request, pk):
         dump = dumpdata('GET', request.GET)
         context = {'dump' : dump}
-        context['function'] = 'GET'
-        context['menu_content'] = pk # MenuContent.objects.get(id=self.kwargs['pk'])
-        context['heading'] = self.heading
+        form = NumberOfPeopleForm(request.GET)
         context['subheading'] = self.subheading
-        return render(request, 'menu/dosomething2.html', context)
+        context['number_of_people'] = self.number_of_people
+        context['menu_content'] = MenuContent.objects.get(id=pk)
+        context["form"] = form
+        if request.method == 'GET' and 'number_of_people' in request.GET:
+            number_of_people = request.GET['number_of_people']
+            if form.is_valid():
+                number_of_people = form.cleaned_data['number_of_people']
+            sql = f"{self.sql} limit {number_of_people}"
+            context['sql'] = sql
+            with connections[self.sourcedb].cursor() as cursor:
+                cursor.execute(sql)
+                context['query_count'] = cursor.rowcount
+                if cursor.rowcount > 0:
+                    columns = [col[0] for col in cursor.description]
+                    context['rows'] = [dict(zip(columns, row)) for row in cursor.fetchall()]
+                    context['columns'] = []
+                    for key, val in context['rows'][0].items():
+                        context['columns'].append(key)
 
-    def post(self, request, pk):
-        dump = dumpdata('POST', request.POST)
-        context = {'dump' : dump}
-        context['heading'] = self.heading
-        context['subheading'] = self.subheading
-        context['sname'] = request.POST['sname']
-        sname = request.POST['sname']
-        sql = f"select e.first_name, e.last_name, e.emp_no, d.dept_name from dept_emp de inner join employees e on de.emp_no = e.emp_no inner join departments d on d.dept_no = de.dept_no where e.last_name like '%{sname}%'"
-        context['sql'] = sql
-        context['function'] = 'POST'
-        context['default_name'] = sname
-        with connections[self.sourcedb].cursor() as cursor:
-            cursor.execute(sql)
-            context['query_count'] = cursor.rowcount
-            if cursor.rowcount > 0:
-                columns = [col[0] for col in cursor.description]
-                context['rows'] = [dict(zip(columns, row)) for row in cursor.fetchall()]
-                context['columns'] = []
-                for key, val in context['rows'][0].items():
-                    context['columns'].append(key)
-        return render(request, 'menu/dosomething2.html', context)
+        return render(request, 'menu/dosomething4.html', context)
 
+class getLowSalaryEployeesView(getHighSalaryEployeesView):
+    desc_or_asc = 'asc'
+    sql = f"select ROW_NUMBER() over(order by salary asc) AS RANKING, e.first_name, e.last_name, e.birth_date, e.gender, e.hire_date, s.from_date, s.salary \
+        from  employees e inner join salaries s on e.emp_no = s.emp_no \
+        where s.salary < 105000 \
+        and to_date > CURDATE() \
+        order by salary asc "
 
 def getEmployeesView(request, pk):
     sourcedb = "employees"
@@ -151,7 +159,6 @@ def getEmployeesView(request, pk):
                     context['columns'].append(key)
 
     return render(request, 'menu/dosomething2.html', context)
-
 
 
 def getEmployeesBySurnameView(request, pk):

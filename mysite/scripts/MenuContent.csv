@@ -1,9 +1,9 @@
 name,url,label,back_url
-main_menu,menu:first_url,Trade Activity Forecast,menu
+main_menu,menu:first_url,Employee Salaries,menu
 main_menu,menu:second_url,Company Accounting,menu
 main_menu,menu:third_url,Employee Queries,menu
-first_menu,menu:dosomething,Find out what people are doing,menu:first_url
-first_menu,menu:dosomething,Get Accounting Details,menu,first_url
+first_menu,menu:highsalaryemployees,Employees With the Highest Salaries,menu:first_url
+first_menu,menu:lowsalaryemployees,Employees With the Lowest Salaries,menu:first_url
 first_menu,menu:dosomething,Get Batch Execution Details,menu:first_url
 second_menu,menu:dosomething,Find out how to Climb Trees,menu:second_url
 second_menu,menu:dosomething,Get Car Details,menu:second_url
