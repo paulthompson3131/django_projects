@@ -95,12 +95,11 @@ class getHighSalaryEployeesView(View):
     sourcedb = "employees"
     subheading = "Employees Information"
     number_of_people = 0
-    desc_or_asc = 'desc'
     sql = f"select ROW_NUMBER() over(order by salary desc) AS RANKING, e.first_name, e.last_name, e.birth_date, e.gender, e.hire_date, s.from_date, s.salary \
             from  employees e inner join salaries s on e.emp_no = s.emp_no \
             where s.salary > 105000 \
             and to_date > CURDATE() \
-            order by salary {desc_or_asc} "
+            order by salary desc "
 
     def get(self, request, pk):
         dump = dumpdata('GET', request.GET)
@@ -129,12 +128,11 @@ class getHighSalaryEployeesView(View):
         return render(request, 'menu/dosomething4.html', context)
 
 class getLowSalaryEployeesView(getHighSalaryEployeesView):
-    desc_or_asc = 'asc'
     sql = f"select ROW_NUMBER() over(order by salary asc) AS RANKING, e.first_name, e.last_name, e.birth_date, e.gender, e.hire_date, s.from_date, s.salary \
-        from  employees e inner join salaries s on e.emp_no = s.emp_no \
-        where s.salary < 105000 \
-        and to_date > CURDATE() \
-        order by salary asc "
+            from  employees e inner join salaries s on e.emp_no = s.emp_no \
+            where s.salary < 105000 \
+            and to_date > CURDATE() \
+            order by salary asc "
 
 def getEmployeesView(request, pk):
     sourcedb = "employees"
