@@ -1,23 +1,11 @@
-{% load static %}
+{% extends 'menu/master.html' %}
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <title>Paul Thompson</title>
-  <meta charset="UTF-8">
-  <link rel="stylesheet" href="{% static 'menu/css/paul.css' %}">
+{% block mymessage %}
 
-</head>
-<body>
-<div class="myDiv">
-    <h1>{{ menu_content.label }}</h2>
-    <p>{{ subheading }}</p>
-</div>
-<br>
-    <table class="styled-table">
+    <table class="table table-responsive table-striped table-bordered table-hover">
         <tr>
             {% for column in columns %}
-            <th>
+            <th class="table-primary">
                 {{ column }}
             </th>
             {% endfor %}
@@ -36,10 +24,4 @@
     <br>
     <br>
 
-    <a href="{{request.META.HTTP_REFERER}}">Go back to Previous Page</a>
-    <br>
-    <br>
-
-    <a href="{% url 'menu:mainmenu' %}">Return to Main Menu</a></li>
-</body>
-</html>
+{% endblock %}

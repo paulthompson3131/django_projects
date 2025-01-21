@@ -1,5 +1,5 @@
 name,heading,parent
 main_menu,Pauls Home Page,none
-first_menu,Trade Activity Forecast,main_menu
+first_menu,Employee Salaries,main_menu
 second_menu,Company Accounting,main_menu
 third_menu,Employee Queries,main_menu

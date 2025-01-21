@@ -1,17 +1,6 @@
-{% load static %}
+{% extends 'menu/master_menu.html' %}
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <title>Paul Thompson</title>
-  <meta charset="UTF-8">
-  <link rel="stylesheet" href="{% static 'menu/css/paul.css' %}">
-</head>
-<body>
-<div class="myDiv">
-    <h1>{{ menu.heading }}</h2>
-  <p>System Search Features</p>
-</div>
+{% block mymessage %}
 
 {% if menu %}
     <ul>
@@ -32,6 +21,5 @@
     {% endif %}
 {% endif %}
 
-</body>
-</html>
+{% endblock %}
 

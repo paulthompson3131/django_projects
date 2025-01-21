@@ -4,30 +4,15 @@ html {
  background: lightblue;
 }
 
-table, th, td {
-  border: 1px solid;
-}
 
 body {
  margin-top: 10px;
  margin-left: 60px;
  background: lightblue;
  padding: 0 20px;
- width: 920px;
  padding:20px;
 }
 
-h1 {
-  color: blue;
-  font-family: verdana;
-  font-size: 200%;
-}
-p {
-  color: red;
-  font-family: courier;
-  font-size: 120%;
-  font-style: italic;
-}
 .myDiv {
   border: 3px outset green;
   background-color: lightblue;

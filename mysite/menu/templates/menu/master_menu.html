@@ -1,0 +1,27 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Paul Thompson</title>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="{% static 'menu/css/bootstrap.min.css' %}">
+  <link rel="stylesheet" href="{% static 'menu/js/bootstrap.bundle.min.js' %}">
+  <link rel="stylesheet" href="{% static 'menu/css/paul.css' %}">
+</head>
+<body>
+<div class="mt-2 p-4 bg-primary text-white rounded">
+    <h1>{{ menu.heading }}</h1><br>
+</div>
+<br>
+<br>
+
+
+{% block mymessage %}
+{% endblock %}
+
+<br>
+
+
+</body>
+</html>

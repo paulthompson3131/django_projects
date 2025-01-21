@@ -1,0 +1,36 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Paul Thompson</title>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="{% static 'menu/css/bootstrap.min.css' %}">
+  <link rel="stylesheet" href="{% static 'menu/js/bootstrap.bundle.min.js' %}">
+  <link rel="stylesheet" href="{% static 'menu/css/paul.css' %}">
+</head>
+<body>
+<div class="mt-2 p-4 bg-primary text-white rounded">
+    <h1>{{ menu_content.label }}</h1><br>
+    <a class="btn btn-info btn-sm" href="{% url menu_content.back_url menu_content.id %}" role="button">Return to Previous Options</a> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <a class="btn btn-info btn-sm" href="{% url 'menu:mainmenu' %} "role="button">Go Home</a></li>
+</div>
+<br>
+<br>
+
+
+{% block mymessage %}
+{% endblock %}
+
+
+            <a href="{% url menu_content.back_url menu_content.id %}">Go back to Previous Options</a>
+            <br>
+            <br>
+            <a href="{% url 'menu:mainmenu' %}">Return Home</a></li>
+
+
+</body>
+</html>
+
+
+</body>
+</html>

@@ -39,7 +39,7 @@ class ThirdView(MainMenuView):
 
 class DoSomethingView(TemplateView):
     template_name = 'menu/dosomething.html'
-    sql = "SELECT name, owner, birth from cats"
+    sql = "SELECT name as 'Cat Name', owner as 'Employee', birth as 'Cat Birthday' from cats"
     sourcedb = "systemsupport"
     form = BasicForm()
 
@@ -47,8 +47,6 @@ class DoSomethingView(TemplateView):
         context = super().get_context_data(**kwargs)
         context['form'] = self.form
         context['menu_content'] = MenuContent.objects.get(id=self.kwargs['pk'])
-        context['heading'] = "Test Heading"
-        context['subheading'] = "Employees Information"
         with connections[self.sourcedb].cursor() as cursor:
             cursor.execute(self.sql)
             columns = [col[0] for col in cursor.description]
@@ -97,8 +95,7 @@ class getHighSalaryEployeesView(View):
     number_of_people = 0
     sql = f"select ROW_NUMBER() over(order by salary desc) AS RANKING, e.first_name, e.last_name, e.birth_date, e.gender, e.hire_date, s.from_date, s.salary \
             from  employees e inner join salaries s on e.emp_no = s.emp_no \
-            where s.salary > 105000 \
-            and to_date > CURDATE() \
+            where to_date > CURDATE() \
             order by salary desc "
 
     def get(self, request, pk):
@@ -127,12 +124,63 @@ class getHighSalaryEployeesView(View):
 
         return render(request, 'menu/dosomething4.html', context)
 
+
 class getLowSalaryEployeesView(getHighSalaryEployeesView):
     sql = f"select ROW_NUMBER() over(order by salary asc) AS RANKING, e.first_name, e.last_name, e.birth_date, e.gender, e.hire_date, s.from_date, s.salary \
             from  employees e inner join salaries s on e.emp_no = s.emp_no \
-            where s.salary < 105000 \
-            and to_date > CURDATE() \
+            where to_date > CURDATE() \
             order by salary asc "
+
+
+class getEmployeesBySurnameView(View):
+    sourcedb = "employees"
+    sname = ""
+    sql = f"select e.first_name, e.last_name, e.emp_no, d.dept_name from dept_emp de \
+    inner join employees e \
+    on de.emp_no = e.emp_no \
+    inner join departments d \
+    on d.dept_no = de.dept_no \
+    where e.last_name like "
+
+    def get(self, request, pk):
+        dump = dumpdata('GET', request.GET)
+        context = {'dump' : dump}
+        form = MyForm(request.GET)
+        context['sname'] = self.sname
+        context['menu_content'] = MenuContent.objects.get(id=pk)
+        context["form"] = form
+        if request.method == 'GET' and 'sname' in request.GET:
+            sname = request.GET['sname']
+            if form.is_valid():
+                sname = form.cleaned_data['sname']
+            sql = f"{self.sql} '%{sname}%'"
+            context['sql'] = sql
+            with connections[self.sourcedb].cursor() as cursor:
+                cursor.execute(sql)
+                context['query_count'] = cursor.rowcount
+                if cursor.rowcount > 0:
+                    columns = [col[0] for col in cursor.description]
+                    context['rows'] = [dict(zip(columns, row)) for row in cursor.fetchall()]
+                    context['columns'] = []
+                    for key, val in context['rows'][0].items():
+                        context['columns'].append(key)
+
+        return render(request, 'menu/dosomething4.html', context)
+
+class getEmployeesBySalaryView(getEmployeesBySurnameView):
+    sql = f"select e.first_name, e.last_name, e.emp_no, s.salary \
+        from employees e \
+        inner join salaries s on s.emp_no = e.emp_no \
+        where e.last_name like "
+
+class getEmployeesByDepartmentView(getEmployeesBySurnameView):
+    sql = f"select e.first_name, e.last_name, e.emp_no, d.dept_name from dept_emp de \
+    inner join employees e \
+    on de.emp_no = e.emp_no \
+    inner join departments d \
+    on d.dept_no = de.dept_no \
+    where e.last_name like "
+
 
 def getEmployeesView(request, pk):
     sourcedb = "employees"
@@ -159,70 +207,8 @@ def getEmployeesView(request, pk):
     return render(request, 'menu/dosomething2.html', context)
 
 
-def getEmployeesBySurnameView(request, pk):
-    sourcedb = "employees"
-    dump = dumpdata('GET', request.GET)
-    context = {'dump' : dump}
-    context['menu_content'] = MenuContent.objects.get(id=pk)
-    context['subheading'] = "Employees Information"
-    sname = request.GET.get('sname','')
-    context['length_sname'] = len(sname)
-    form = MyForm(request.GET)
-    context["form"] = form
-    if form.is_valid():
-        sname = form.cleaned_data['sname']
-    if sname != '':
-        sql = f"select e.first_name, e.last_name, e.emp_no, d.dept_name from dept_emp de inner join employees e on de.emp_no = e.emp_no inner join departments d on d.dept_no = de.dept_no where e.last_name like '%{sname}%'"
-        context['sql'] = sql
-        context['function'] = 'GET'
-        context['default_name'] = sname
-        with connections[sourcedb].cursor() as cursor:
-            cursor.execute(sql)
-            context['query_count'] = cursor.rowcount
-            if cursor.rowcount > 0:
-                columns = [col[0] for col in cursor.description]
-                context['rows'] = [dict(zip(columns, row)) for row in cursor.fetchall()]
-                context['columns'] = []
-                for key, val in context['rows'][0].items():
-                    context['columns'].append(key)
 
-    return render(request, 'menu/dosomething3.html', context)
-
-
-def getEmployeesBySalaryView(request, pk):
-    sourcedb = "employees"
-    dump = dumpdata('GET', request.GET)
-    context = {'dump' : dump}
-    context['menu_content'] = MenuContent.objects.get(id=pk)
-    context['subheading'] = "Employees Information"
-    sname = request.GET.get('sname','')
-    context['length_sname'] = len(sname)
-    form = MyForm(request.GET)
-    context["form"] = form
-    if form.is_valid():
-        sname = form.cleaned_data['sname']
-    if sname != '':
-        sql = f"select e.first_name, e.last_name, e.emp_no, s.salary \
-        from employees e \
-        inner join salaries s on s.emp_no = e.emp_no \
-        where e.last_name like '%{sname}%'"
-        context['sql'] = sql
-        context['function'] = 'GET'
-        context['default_name'] = sname
-        with connections[sourcedb].cursor() as cursor:
-            cursor.execute(sql)
-            context['query_count'] = cursor.rowcount
-            if cursor.rowcount > 0:
-                columns = [col[0] for col in cursor.description]
-                context['rows'] = [dict(zip(columns, row)) for row in cursor.fetchall()]
-                context['columns'] = []
-                for key, val in context['rows'][0].items():
-                    context['columns'].append(key)
-
-    return render(request, 'menu/dosomething3.html', context)
-
-
-def getEmployeesByDepartmentView(request, pk):
+def getEmployeesByDepartmentView2(request, pk):
     sourcedb = "employees"
     dump = dumpdata('GET', request.GET)
     context = {'dump' : dump}

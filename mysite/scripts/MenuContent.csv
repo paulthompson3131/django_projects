@@ -4,7 +4,7 @@ main_menu,menu:second_url,Company Accounting,menu
 main_menu,menu:third_url,Employee Queries,menu
 first_menu,menu:highsalaryemployees,Employees With the Highest Salaries,menu:first_url
 first_menu,menu:lowsalaryemployees,Employees With the Lowest Salaries,menu:first_url
-first_menu,menu:dosomething,Get Batch Execution Details,menu:first_url
+first_menu,menu:dosomething,Employees Cats,menu:first_url
 second_menu,menu:dosomething,Find out how to Climb Trees,menu:second_url
 second_menu,menu:dosomething,Get Car Details,menu:second_url
 second_menu,menu:dosomething,Get Astronomical Details,menu:second_url

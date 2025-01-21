@@ -12,7 +12,7 @@ urlpatterns = [
     path("dosomething/<int:pk>", views.DoSomethingView.as_view(), name="dosomething"),
     path("lowsalaryemployees/<int:pk>", views.getLowSalaryEployeesView.as_view(), name="lowsalaryemployees"),
     path("highsalaryemployees/<int:pk>", views.getHighSalaryEployeesView.as_view(), name="highsalaryemployees"),
-    path("employeesbysurname/<int:pk>", views.getEmployeesBySurnameView, name="employeesbysurname"),
-    path("employeesbydepartment/<int:pk>", views.getEmployeesByDepartmentView, name="employeesbydepartment"),
-    path("employeesbysalary/<int:pk>", views.getEmployeesBySalaryView, name="employeesbysalary"),
+    path("employeesbysurname/<int:pk>", views.getEmployeesBySurnameView.as_view(), name="employeesbysurname"),
+    path("employeesbydepartment/<int:pk>", views.getEmployeesByDepartmentView.as_view(), name="employeesbydepartment"),
+    path("employeesbysalary/<int:pk>", views.getEmployeesBySalaryView.as_view(), name="employeesbysalary"),
 ]
